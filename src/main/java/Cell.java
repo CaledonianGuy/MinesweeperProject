@@ -1,30 +1,42 @@
+import java.util.HashMap;
+
 public class Cell {
 
     // Attributes ---------------------------------------------------------------------
-    int[] pos;
+    int gridX;
+    int gridY;
     int neighbourMineCount;
     boolean hasMine;
     boolean hasFlag;
-    Cell[] neighbours;
+    boolean isRevealed;
     // --------------------------------------------------------------------------------
 
     // Constructor --------------------------------------------------------------------
-    public Cell(int[] pos) {
-        this.pos = pos;
+    public Cell(int gridX, int gridY) {
+        this.gridX = gridX;
+        this.gridY = gridY;
         this.neighbourMineCount = 0;
         this.hasMine = false;
         this.hasFlag = false;
-        this.neighbours = new Cell[8];
+        this.isRevealed = false;
     }
     // --------------------------------------------------------------------------------
 
     // Getters & Setters --------------------------------------------------------------
-    public int[] getPos() {
-        return pos;
+    public int getGridX() {
+        return gridX;
     }
 
-    public void setPos(int[] pos) {
-        this.pos = pos;
+    public void setGridX(int gridX) {
+        this.gridX = gridX;
+    }
+
+    public int getGridY() {
+        return gridY;
+    }
+
+    public void setGridY(int gridY) {
+        this.gridY = gridY;
     }
 
     public int getNeighbourMineCount() {
@@ -35,7 +47,7 @@ public class Cell {
         this.neighbourMineCount = neighbourMineCount;
     }
 
-    public boolean isHasMine() {
+    public boolean getHasMine() {
         return hasMine;
     }
 
@@ -43,7 +55,7 @@ public class Cell {
         this.hasMine = hasMine;
     }
 
-    public boolean isHasFlag() {
+    public boolean getHasFlag() {
         return hasFlag;
     }
 
@@ -51,12 +63,12 @@ public class Cell {
         this.hasFlag = hasFlag;
     }
 
-    public Cell[] getNeighbours() {
-        return neighbours;
+    public boolean getIsRevealed() {
+        return isRevealed;
     }
 
-    public void setNeighbours(Cell[] neighbours) {
-        this.neighbours = neighbours;
+    public void setIsRevealed(boolean revealed) {
+        isRevealed = revealed;
     }
     // --------------------------------------------------------------------------------
 }
