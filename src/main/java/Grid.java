@@ -85,9 +85,9 @@ public class Grid {
                 } else if (!grid[col][row].getIsRevealed()) {
                     msg.append("  ");
                 } else if (grid[col][row].getIsRevealed() && col == width - 1) {
-                    msg.append((col + 1) + "\n");
+                    msg.append(col + 1).append("\n");
                 } else {
-                    msg.append((col + 1) + " ");
+                    msg.append(col + 1).append(" ");
                 }
             }
         }
