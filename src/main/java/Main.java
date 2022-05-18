@@ -1,10 +1,13 @@
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+
+        // Intro - later when adding difficulty
+
         Grid testGrid = new Grid();
         testGrid.buildGrid();
-//        clearScreen();
         System.out.println(testGrid.drawGrid());
-        System.out.println(testGrid.drawMineMap());
     }
 
     public static void clearScreen() {
