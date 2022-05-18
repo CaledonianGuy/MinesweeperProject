@@ -3,12 +3,12 @@ import java.util.HashMap;
 public class Cell {
 
     // Attributes ---------------------------------------------------------------------
-    int gridX;
-    int gridY;
-    int neighbourMineCount;
-    boolean hasMine;
-    boolean hasFlag;
-    boolean isRevealed;
+    private int gridX;
+    private int gridY;
+    private int neighbourMineCount;
+    private boolean hasMine;
+    private boolean hasFlag;
+    private boolean isRevealed;
     // --------------------------------------------------------------------------------
 
     // Constructor --------------------------------------------------------------------

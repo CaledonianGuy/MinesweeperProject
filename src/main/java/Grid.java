@@ -1,12 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Grid {
 
     // Attributes ---------------------------------------------------------------------
-    int width;
-    int height;
-    int numMines;
-    Cell[][] grid;
+    private int width;
+    private int height;
+    private int numMines;
+    private Cell[][] grid;
     // --------------------------------------------------------------------------------
 
     // Constructors -------------------------------------------------------------------
@@ -69,6 +71,7 @@ public class Grid {
                 }
             }
         }
+        addMines();
     }
 
     public String drawGrid() {
@@ -94,8 +97,20 @@ public class Grid {
         return msg.toString();
     }
 
-    public void updateGrid() {
-
+    public void updateGrid(int x, int y, String action) {
+        switch (action) {
+            case "+":
+                addFlag(x, y);
+                break;
+            case "-":
+                removeFlag(x, y);
+                break;
+            case "R":
+                revealCell(x, y);
+                break;
+            default:
+                break;
+        }
     }
 
     public String drawMineMap() {
@@ -121,7 +136,7 @@ public class Grid {
         return msg.toString();
     }
 
-    public void addMines() {
+    private void addMines() {
         int minesToPlace = numMines;
         while (minesToPlace > 0) {
 //            int randomNumX = ThreadLocalRandom.current().nextInt(0, width + 1);
@@ -137,7 +152,7 @@ public class Grid {
         }
     }
 
-    public void addFlag(int x, int y) {
+    private void addFlag(int x, int y) {
         // Might need to check if the cell is revealed too.
         if (!grid[x][y].getHasFlag()) {
             grid[x][y].setHasFlag(true);
@@ -147,13 +162,39 @@ public class Grid {
         }
     }
 
-    public void removeFlag(int x, int y) {
+    private void removeFlag(int x, int y) {
         if (grid[x][y].getHasFlag()) {
             grid[x][y].setHasFlag(false);
         } else {
             // This might need so extra things in main
             System.out.println("There is no flag to remove.");
         }
+    }
+
+    private void revealCell(int x, int y) {
+        if (grid[x][y].getHasMine()) {
+            // Game Over
+        } else {
+            if (grid[x][y].getNeighbourMineCount() > 0) {
+                // Reveal Only Neighbours
+            } else {
+                // Reveal Cell & Neighbours
+            }
+        }
+    }
+
+    private List<Cell> getNeighbours(int x, int y) {
+        List<Cell> neighbourList = new ArrayList<>();
+        for (int row = y - 1; row < x + 2; row++) {
+            for (int col = x - 1; col < x + 2; col++) {
+                if (col != x && row != y) {
+                    if ((col > -1 && col < width) && (row > -1 && row < height)) {
+                        neighbourList.add(grid[x][y]);
+                    }
+                }
+            }
+        }
+        return neighbourList;
     }
     // --------------------------------------------------------------------------------
 }
