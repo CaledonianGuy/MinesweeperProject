@@ -9,6 +9,7 @@ public class Grid {
     private int height;
     private int numMines;
     private Cell[][] grid;
+    private boolean hasHitMine;
     // --------------------------------------------------------------------------------
 
     // Constructors -------------------------------------------------------------------
@@ -17,6 +18,7 @@ public class Grid {
         this.height = 8;
         this.numMines = 10;
         this.grid = new Cell[this.width][this.height];
+        this.hasHitMine = false;
     }
 
     public Grid(int width, int height) {
@@ -24,6 +26,7 @@ public class Grid {
         this.height = height;
         this.numMines = 10;
         this.grid = new Cell[this.width][this.height];
+        this.hasHitMine = false;
     }
     // --------------------------------------------------------------------------------
 
@@ -58,6 +61,14 @@ public class Grid {
 
     public void setGrid(Cell[][] grid) {
         this.grid = grid;
+    }
+
+    public boolean isHasHitMine() {
+        return hasHitMine;
+    }
+
+    public void setHasHitMine(boolean hasHitMine) {
+        this.hasHitMine = hasHitMine;
     }
     // --------------------------------------------------------------------------------
 
@@ -139,9 +150,6 @@ public class Grid {
     private void addMines() {
         int minesToPlace = numMines;
         while (minesToPlace > 0) {
-//            int randomNumX = ThreadLocalRandom.current().nextInt(0, width + 1);
-//            int randomNumY = ThreadLocalRandom.current().nextInt(0, height + 1);
-
             int randomNumX = (int) (Math.random() * (((width - 1)) + 1));
             int randomNumY = (int) (Math.random() * (((height - 1)) + 1));
 
@@ -173,12 +181,16 @@ public class Grid {
 
     private void revealCell(int x, int y) {
         if (grid[x][y].getHasMine()) {
-            // Game Over
+            hasHitMine = true;
         } else {
             if (grid[x][y].getNeighbourMineCount() > 0) {
-                // Reveal Only Neighbours
+                grid[x][y].setIsRevealed(true);
             } else {
-                // Reveal Cell & Neighbours
+                grid[x][y].setIsRevealed(true);
+                List<Cell> neighbours = getNeighbours(x, y);
+                for (Cell neighbour : neighbours) {
+                    revealCell(neighbour.getGridX(), neighbour.getGridY());
+                }
             }
         }
     }
