@@ -3,12 +3,12 @@ import game.minesweeper.Grid;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class GridTest {
+public class GridTest {
     Grid testGridOne = new Grid();
     Grid testGridTwo = new Grid(10, 10);
 
     @Test
-    void testSetGetWidth() {
+    public void testSetGetWidth() {
         // Test Grid One
         Assertions.assertEquals(10, testGridOne.getWidth(),
                 "width has not been made correctly in constructor Grid()");
@@ -19,7 +19,7 @@ class GridTest {
     }
 
     @Test
-    void testGetSetHeight() {
+    public void testGetSetHeight() {
         // Test Grid One
         Assertions.assertEquals(8, testGridOne.getHeight(),
                 "height has not been made correctly in constructor Grid()");
@@ -30,7 +30,7 @@ class GridTest {
     }
 
     @Test
-    void testGetNumMines() {
+    public void testGetNumMines() {
         // Test Grid One
         Assertions.assertEquals(10, testGridOne.getNumMines(),
                 "numMines has not been made correctly in constructor Grid()");
@@ -51,7 +51,7 @@ class GridTest {
     }
 
     @Test
-    void testGetSetHasHitMine() {
+    public void testGetSetHasHitMine() {
         // Test Grid One
         Assertions.assertFalse(testGridOne.getIsHasHitMine(),
                 "hasHitMine has not been made correctly in constructor Grid()");

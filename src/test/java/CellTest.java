@@ -2,23 +2,23 @@ import game.minesweeper.Cell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class CellTest {
+public class CellTest {
     Cell testCell = new Cell(5, 6);
 
     @Test
-    void testGetSetGridX() {
+    public void testGetSetGridX() {
         Assertions.assertEquals(5, testCell.getGridX(),
                 "gridX has not been made correctly");
     }
 
     @Test
-    void testGetSetGridY() {
+    public void testGetSetGridY() {
         Assertions.assertEquals(6, testCell.getGridY(),
                 "gridY has not been made correctly");
     }
 
     @Test
-    void testGetSetNeighbourMineCount() {
+    public void testGetSetNeighbourMineCount() {
         Assertions.assertEquals(0, testCell.getNeighbourMineCount(),
                 "neighbour Mine Count has not been made correctly");
 
@@ -29,7 +29,7 @@ class CellTest {
     }
 
     @Test
-    void testGetSetHasMine() {
+    public void testGetSetHasMine() {
         Assertions.assertFalse(testCell.getHasMine(), "hasMine has not been made correctly");
 
         testCell.setHasMine(true);
@@ -38,7 +38,7 @@ class CellTest {
     }
 
     @Test
-    void testGetSetHasFlag() {
+    public void testGetSetHasFlag() {
         Assertions.assertFalse(testCell.getHasFlag(), "hasFlag has not been made correctly");
 
         testCell.setHasFlag(true);
@@ -47,7 +47,7 @@ class CellTest {
     }
 
     @Test
-    void testGetSetIsRevealed() {
+    public void testGetSetIsRevealed() {
         Assertions.assertFalse(testCell.getIsRevealed(), "isRevealed has not been made correctly");
 
         testCell.setIsRevealed(true);
