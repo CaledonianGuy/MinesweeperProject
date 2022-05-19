@@ -8,8 +8,8 @@ public class Main {
 
         // Intro - later when adding difficulty
 
-        Grid testGrid = new Grid();
-        testGrid.buildGrid();
+        Grid mainGrid = new Grid();
+        mainGrid.buildGrid();
 
         Scanner reader = new Scanner(System.in);
 
@@ -20,12 +20,12 @@ public class Main {
         boolean running = true;
 
         while (running) {
-            System.out.println(testGrid.drawGrid());
+            System.out.println(mainGrid.drawGrid());
 
             System.out.println("Which cell would you like to select?");
-            System.out.println("Please enter in the form - X, Y.");
-            System.out.println("For X this must be between 1 - " + testGrid.getWidth()
-                    + " and for Y this must be between 1 - " + testGrid.getHeight());
+            System.out.println("Please enter in the form - X, Y. Where X is the column and Y is the row.");
+            System.out.println("For X this must be between 1 - " + mainGrid.getWidth()
+                    + " and for Y this must be between 1 - " + mainGrid.getHeight() + ".");
 
             runningInputCheck = true;
 
@@ -44,11 +44,12 @@ public class Main {
                         }
                     }
                 }
-
             }
 
             System.out.println("\nWhich operation would you like to perform?");
-            System.out.println("You can add flag to cell (add), remove flag from cell (remove), or reveal cell (reveal).");
+            System.out.println("You can add flag to cell (add)," +
+                    "remove flag from cell (remove)," +
+                    "or reveal cell (reveal).");
 
             runningInputCheck = true;
 
@@ -66,9 +67,9 @@ public class Main {
                 }
             }
 
-            testGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
+            mainGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
 
-            if (testGrid.getIsHasHitMine()) {
+            if (mainGrid.getIsHasHitMine()) {
                 System.out.println("\nYou hit a mine! Better luck next time!");
                 running = false;
             }
@@ -77,8 +78,8 @@ public class Main {
             reader.nextLine();
         }
 
-        testGrid.revealAll();
-        System.out.println(testGrid.drawGrid());
+        mainGrid.revealAll();
+        System.out.println(mainGrid.drawGrid());
     }
 
     public static boolean isInteger(String str) {

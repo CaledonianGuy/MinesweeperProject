@@ -12,6 +12,7 @@ public class Grid {
     private int numMines;
     private final Cell[][] mainGrid;
     private boolean hasHitMine;
+    private final List<Cell> mineLocations;
     // --------------------------------------------------------------------------------
 
     // Constructors -------------------------------------------------------------------
@@ -21,6 +22,7 @@ public class Grid {
         this.numMines = 10;
         this.mainGrid = new Cell[this.width][this.height];
         this.hasHitMine = false;
+        this.mineLocations = new ArrayList<>();
     }
 
     public Grid(int width, int height) {
@@ -29,6 +31,7 @@ public class Grid {
         this.numMines = 10;
         this.mainGrid = new Cell[this.width][this.height];
         this.hasHitMine = false;
+        this.mineLocations = new ArrayList<>();
     }
     // --------------------------------------------------------------------------------
 
@@ -49,12 +52,16 @@ public class Grid {
         this.numMines = numMines;
     }
 
-    public Cell[][] getMainGrid() {
-        return mainGrid;
+    public Cell getCell(int x, int y) {
+        return mainGrid[x][y];
     }
 
     public boolean getIsHasHitMine() {
         return hasHitMine;
+    }
+
+    public List<Cell> getMineLocations() {
+        return mineLocations;
     }
     // --------------------------------------------------------------------------------
 
@@ -118,37 +125,7 @@ public class Grid {
         }
     }
 
-    /*
-    public String drawMineMap() {
-        StringBuilder msg = new StringBuilder("  ");
-        for (int i = 0; i < width; i++) {
-            msg.append(i).append(" ");
-        }
-        msg.append("\n");
-        for (int row = 0; row < height; row++) {
-            msg.append(row).append(" ");
-            for (int col = 0; col < width; col++) {
-                if (mainGrid[col][row].getHasMine()) {
-                    if (col == width - 1) {
-                        msg.append("M\n");
-                    } else {
-                        msg.append("M ");
-                    }
-                } else {
-                    if (col == width - 1) {
-                        msg.append(" \n");
-                    } else {
-                        msg.append("  ");
-                    }
-                }
-            }
-        }
-        return msg.toString();
-    }
-
-     */
-
-    private void addMines() {
+    public void addMines() {
         int minesToPlace = numMines;
         while (minesToPlace > 0) {
             int randomNumX = ThreadLocalRandom.current().nextInt(0, width);
@@ -156,6 +133,7 @@ public class Grid {
 
             if (!mainGrid[randomNumX][randomNumY].getHasMine()) {
                 mainGrid[randomNumX][randomNumY].setHasMine(true);
+                mineLocations.add(mainGrid[randomNumX][randomNumY]);
                 for (Cell neighbour : getNeighbours(randomNumX, randomNumY)) {
                     neighbour.setNeighbourMineCount(neighbour.getNeighbourMineCount() + 1);
                 }
@@ -164,29 +142,29 @@ public class Grid {
         }
     }
 
-    private void addFlag(int x, int y) {
-        if (!mainGrid[x][y].getHasFlag()) {
+    public void addFlag(int x, int y) {
+        if (mainGrid[x][y].getIsRevealed()) {
+            System.out.println("Cell already revealed.");
+        } else if (!mainGrid[x][y].getHasFlag()) {
             mainGrid[x][y].setHasFlag(true);
             System.out.println("Flag added.");
-        } else if (mainGrid[x][y].getIsRevealed()) {
-            System.out.println("Cell already revealed.");
         } else {
             System.out.println("There is already a flag.");
         }
     }
 
-    private void removeFlag(int x, int y) {
-        if (mainGrid[x][y].getHasFlag()) {
+    public void removeFlag(int x, int y) {
+        if (mainGrid[x][y].getIsRevealed()) {
+            System.out.println("Cell already revealed.");
+        } else if (mainGrid[x][y].getHasFlag()) {
             mainGrid[x][y].setHasFlag(false);
             System.out.println("Flag removed.");
-        } else if (mainGrid[x][y].getIsRevealed()) {
-            System.out.println("Cell already revealed.");
         } else {
             System.out.println("There is no flag to remove.");
         }
     }
 
-    private void revealCell(int x, int y) {
+    public void revealCell(int x, int y) {
         if (mainGrid[x][y].getHasMine()) {
             hasHitMine = true;
         } else {
@@ -208,7 +186,7 @@ public class Grid {
         }
     }
 
-    private List<Cell> getNeighbours(int x, int y) {
+    public List<Cell> getNeighbours(int x, int y) {
         List<Cell> neighbourList = new ArrayList<>();
         for (int row = y - 1; row < y + 2; row++) {
             for (int col = x - 1; col < x + 2; col++) {
@@ -220,7 +198,7 @@ public class Grid {
         return neighbourList;
     }
 
-    private boolean isInRange(int x, int y) {
+    public boolean isInRange(int x, int y) {
         return (x > -1 && x < width) && (y > -1 && y < height);
     }
 
