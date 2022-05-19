@@ -35,84 +35,82 @@ import java.util.Scanner;
 
 <span class="nc bnc" id="L36" title="All 2 branches missed.">                for (int i = 0; i &lt; 2; i++) {</span>
 <span class="nc bnc" id="L37" title="All 2 branches missed.">                    if (!isInteger(tempHolder[i])) {</span>
-//                        System.out.println(&quot;Invalid input!&quot;);
-<span class="nc" id="L39">                        System.err.println(&quot;Input invalid!&quot;);</span>
-<span class="nc" id="L40">                        break;</span>
+<span class="nc" id="L38">                        System.err.println(&quot;Input invalid!&quot;);</span>
+<span class="nc" id="L39">                        break;</span>
                     } else {
-<span class="nc" id="L42">                        inputs[i] = tempHolder[i];</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">                        if (i == 1) {</span>
-<span class="nc" id="L44">                            runningInputCheck = false;</span>
+<span class="nc" id="L41">                        inputs[i] = tempHolder[i];</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">                        if (i == 1) {</span>
+<span class="nc" id="L43">                            runningInputCheck = false;</span>
                         }
                     }
                 }
 
-<span class="nc" id="L49">            }</span>
+<span class="nc" id="L48">            }</span>
 
-<span class="nc" id="L51">            System.out.println(&quot;\nWhich operation would you like to perform?&quot;);</span>
-<span class="nc" id="L52">            System.out.println(&quot;You can add flag to cell (add), remove flag from cell (remove), or reveal cell (reveal).&quot;);</span>
+<span class="nc" id="L50">            System.out.println(&quot;\nWhich operation would you like to perform?&quot;);</span>
+<span class="nc" id="L51">            System.out.println(&quot;You can add flag to cell (add), remove flag from cell (remove), or reveal cell (reveal).&quot;);</span>
 
-<span class="nc" id="L54">            runningInputCheck = true;</span>
+<span class="nc" id="L53">            runningInputCheck = true;</span>
 
-<span class="nc bnc" id="L56" title="All 2 branches missed.">            while (runningInputCheck) {</span>
-<span class="nc" id="L57">                System.out.println(&quot;Please enter add, remove, or reveal.&quot;);</span>
-<span class="nc" id="L58">                input = reader.next().toLowerCase();</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            while (runningInputCheck) {</span>
+<span class="nc" id="L56">                System.out.println(&quot;Please enter add, remove, or reveal.&quot;);</span>
+<span class="nc" id="L57">                input = reader.next().toLowerCase();</span>
 
-<span class="nc bnc" id="L60" title="All 2 branches missed.">                if (!Objects.equals(input, &quot;add&quot;)</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">                        &amp;&amp; !Objects.equals(input, &quot;remove&quot;)</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">                        &amp;&amp; !Objects.equals(input, &quot;reveal&quot;)) {</span>
-//                    System.out.println(&quot;Input invalid!&quot;);
-<span class="nc" id="L64">                    System.err.println(&quot;Input invalid!&quot;);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                if (!Objects.equals(input, &quot;add&quot;)</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                        &amp;&amp; !Objects.equals(input, &quot;remove&quot;)</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                        &amp;&amp; !Objects.equals(input, &quot;reveal&quot;)) {</span>
+<span class="nc" id="L62">                    System.err.println(&quot;Input invalid!&quot;);</span>
                 } else {
-<span class="nc" id="L66">                    inputs[2] = input;</span>
-<span class="nc" id="L67">                    runningInputCheck = false;</span>
+<span class="nc" id="L64">                    inputs[2] = input;</span>
+<span class="nc" id="L65">                    runningInputCheck = false;</span>
                 }
             }
 
-<span class="nc" id="L71">            testGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);</span>
+<span class="nc" id="L69">            testGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);</span>
 
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (testGrid.getIsHasHitMine()) {</span>
-<span class="nc" id="L74">                System.out.println(&quot;You hit a mine! Better luck next time!&quot;);</span>
-<span class="nc" id="L75">                running = false;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (testGrid.getIsHasHitMine()) {</span>
+<span class="nc" id="L72">                System.out.println(&quot;\nYou hit a mine! Better luck next time!&quot;);</span>
+<span class="nc" id="L73">                running = false;</span>
             }
 
-<span class="nc" id="L78">            System.out.println();</span>
-<span class="nc" id="L79">            reader.nextLine();</span>
-
+<span class="nc" id="L76">            System.out.println();</span>
+<span class="nc" id="L77">            reader.nextLine();</span>
         }
 
-<span class="nc" id="L83">        System.out.println(&quot;Got to end!!!&quot;);</span>
-<span class="nc" id="L84">    }</span>
+<span class="nc" id="L80">        testGrid.revealAll();</span>
+<span class="nc" id="L81">        System.out.println(testGrid.drawGrid());</span>
+<span class="nc" id="L82">    }</span>
 
     public static boolean isInteger(String str) {
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (str == null) {</span>
-<span class="nc" id="L88">            return false;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (str == null) {</span>
+<span class="nc" id="L86">            return false;</span>
         }
 
-<span class="nc" id="L91">        int length = str.length();</span>
+<span class="nc" id="L89">        int length = str.length();</span>
 
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (length == 0) {</span>
-<span class="nc" id="L94">            return false;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (length == 0) {</span>
+<span class="nc" id="L92">            return false;</span>
         }
 
-<span class="nc" id="L97">        int i = 0;</span>
+<span class="nc" id="L95">        int i = 0;</span>
 
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (str.charAt(0) == '-') {</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">            if (length == 1) {</span>
-<span class="nc" id="L101">                return false;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (str.charAt(0) == '-') {</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">            if (length == 1) {</span>
+<span class="nc" id="L99">                return false;</span>
             }
 
-<span class="nc" id="L104">            i = 1;</span>
+<span class="nc" id="L102">            i = 1;</span>
         }
 
-<span class="nc bnc" id="L107" title="All 2 branches missed.">        for (; i &lt; length; i++) {</span>
-<span class="nc" id="L108">            char c = str.charAt(i);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        for (; i &lt; length; i++) {</span>
+<span class="nc" id="L106">            char c = str.charAt(i);</span>
 
-<span class="nc bnc" id="L110" title="All 4 branches missed.">            if (c &lt; '0' || c &gt; '9') {</span>
-<span class="nc" id="L111">                return false;</span>
+<span class="nc bnc" id="L108" title="All 4 branches missed.">            if (c &lt; '0' || c &gt; '9') {</span>
+<span class="nc" id="L109">                return false;</span>
             }
         }
 
-<span class="nc" id="L115">        return true;</span>
+<span class="nc" id="L113">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -35,7 +35,6 @@ public class Main {
 
                 for (int i = 0; i < 2; i++) {
                     if (!isInteger(tempHolder[i])) {
-//                        System.out.println("Invalid input!");
                         System.err.println("Input invalid!");
                         break;
                     } else {
@@ -60,7 +59,6 @@ public class Main {
                 if (!Objects.equals(input, "add")
                         && !Objects.equals(input, "remove")
                         && !Objects.equals(input, "reveal")) {
-//                    System.out.println("Input invalid!");
                     System.err.println("Input invalid!");
                 } else {
                     inputs[2] = input;
@@ -71,16 +69,16 @@ public class Main {
             testGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
 
             if (testGrid.getIsHasHitMine()) {
-                System.out.println("You hit a mine! Better luck next time!");
+                System.out.println("\nYou hit a mine! Better luck next time!");
                 running = false;
             }
 
             System.out.println();
             reader.nextLine();
-
         }
 
-        System.out.println("Got to end!!!");
+        testGrid.revealAll();
+        System.out.println(testGrid.drawGrid());
     }
 
     public static boolean isInteger(String str) {
