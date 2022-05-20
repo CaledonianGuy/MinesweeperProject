@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="CellTest" time="0.009" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="GameManagerTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="18.0.1.1+2-6"/>
@@ -61,10 +61,5 @@
     <property name="sun.stdout.encoding" value="cp850"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="CellTest" name="CellTest.testGetSetNeighbourMineCount" time="0.008"/>
-  <testcase classname="CellTest" name="CellTest.testGetSetIsRevealed" time="0.001"/>
-  <testcase classname="CellTest" name="CellTest.testGetSetGridX" time="0"/>
-  <testcase classname="CellTest" name="CellTest.testGetSetGridY" time="0"/>
-  <testcase classname="CellTest" name="CellTest.testGetSetHasFlag" time="0"/>
-  <testcase classname="CellTest" name="CellTest.testGetSetHasMine" time="0"/>
+  <testcase classname="GameManagerTest" name="GameManagerTest.testIsInteger" time="0"/>
 </testsuite>

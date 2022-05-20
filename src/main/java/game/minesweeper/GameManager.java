@@ -3,7 +3,13 @@ package game.minesweeper;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {
+public class GameManager {
+
+    protected GameManager() {}
+
+    private static final String[] inputs = new String[3];
+    private static boolean runningInputCheck;
+
     public static void main(String[] args) {
 
         // Intro - later when adding difficulty
@@ -11,12 +17,12 @@ public class Main {
         Grid mainGrid = new Grid();
         mainGrid.buildGrid();
 
-        Scanner reader = new Scanner(System.in);
+//        Scanner reader = new Scanner(System.in);
 
-        String[] inputs = new String[3];
-        String input;
+//        String[] inputs = new String[3];
+//        String input;
 
-        boolean runningInputCheck;
+//        boolean runningInputCheck;
         boolean running = true;
 
         while (running) {
@@ -30,20 +36,7 @@ public class Main {
             runningInputCheck = true;
 
             while (runningInputCheck) {
-                System.out.println("Please enter cell coordinates:");
-                String[] tempHolder = reader.nextLine().split(", ");
-
-                for (int i = 0; i < 2; i++) {
-                    if (!isInteger(tempHolder[i])) {
-                        System.err.println("Input invalid!");
-                        break;
-                    } else {
-                        inputs[i] = tempHolder[i];
-                        if (i == 1) {
-                            runningInputCheck = false;
-                        }
-                    }
-                }
+                coordChecker();
             }
 
             System.out.println("\nWhich operation would you like to perform?");
@@ -54,17 +47,7 @@ public class Main {
             runningInputCheck = true;
 
             while (runningInputCheck) {
-                System.out.println("Please enter add, remove, or reveal.");
-                input = reader.next().toLowerCase();
-
-                if (!Objects.equals(input, "add")
-                        && !Objects.equals(input, "remove")
-                        && !Objects.equals(input, "reveal")) {
-                    System.err.println("Input invalid!");
-                } else {
-                    inputs[2] = input;
-                    runningInputCheck = false;
-                }
+                actionChecker();
             }
 
             mainGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
@@ -82,8 +65,8 @@ public class Main {
                 running = false;
             }
 
-            System.out.println();
-            reader.nextLine();
+//            System.out.println();
+//            reader.nextLine();
         }
 
         mainGrid.revealAll();
@@ -120,5 +103,50 @@ public class Main {
         }
 
         return true;
+    }
+
+    public static void coordChecker() {
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Please enter cell coordinates:");
+        String[] tempHolder = reader.nextLine().split(", ");
+
+        for (int i = 0; i < 2; i++) {
+            if (!isInteger(tempHolder[i])) {
+                System.err.println("Input invalid!");
+                break;
+            } else {
+                inputs[i] = tempHolder[i];
+                if (i == 1) {
+                    runningInputCheck = false;
+                }
+            }
+        }
+    }
+
+    public static void actionChecker() {
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Please enter add, remove, or reveal.");
+        String input = reader.next().toLowerCase();
+
+        if (!Objects.equals(input, "add")
+                && !Objects.equals(input, "remove")
+                && !Objects.equals(input, "reveal")) {
+            System.err.println("Input invalid!");
+        } else {
+            inputs[2] = input;
+            runningInputCheck = false;
+        }
+    }
+
+    protected void run(String string) throws Exception { }
+
+    protected void logException() { }
+
+    protected static GameManager instance = null;
+
+    private static GameManager newGameManager() {
+        return instance == null ? new GameManager() : instance;
     }
 }
