@@ -68,7 +68,14 @@ public class Main {
             }
 
             mainGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
-            System.out.println(mainGrid.getMsgOutput());
+
+            String msg = mainGrid.getMsgOutput();
+            if (msg.equals("Incorrect entry.") || msg.equals("Coordinates not in range.")) {
+                System.err.println(msg);
+            } else {
+                System.out.println(msg);
+            }
+
 
             if (mainGrid.getIsHasHitMine()) {
                 System.out.println("\nYou hit a mine! Better luck next time!");

@@ -107,7 +107,34 @@ public class GridTest {
 
     @Test
     public void testUpdateGrid() {
+        smallGrid.setNumMines(0);
+        smallGrid.buildGrid();
+        Cell testCell = smallGrid.getCell(0, 0);
 
+        //
+        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "add");
+
+        Assertions.assertTrue(testCell.getHasFlag(), "");
+
+        //
+        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "remove");
+
+        Assertions.assertFalse(testCell.getHasFlag(), "");
+
+        //
+        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "reveal");
+
+        Assertions.assertTrue(testCell.getIsRevealed(), "");
+
+        //
+        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "");
+
+        Assertions.assertEquals("Incorrect entry.", smallGrid.getMsgOutput(), "");
+
+        //
+        smallGrid.updateGrid(10, 10, "add");
+
+        Assertions.assertEquals("Coordinates not in range.", smallGrid.getMsgOutput(), "");
     }
 
     @Test
@@ -117,15 +144,21 @@ public class GridTest {
         // Test Grid One
         Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
 
+
+        //
         testGridOne.addFlag(0, 0);
 
         Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(), "");
         Assertions.assertEquals("Flag added.", testGridOne.getMsgOutput(), "");
 
+
+        //
         testGridOne.addFlag(0, 0);
 
         Assertions.assertEquals("There is already a flag.", testGridOne.getMsgOutput(), "");
 
+
+        //
         testGridOne.getCell(0, 0).setHasFlag(false);
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.addFlag(0, 0);
@@ -137,19 +170,23 @@ public class GridTest {
     public void testRemoveFlag() {
         testGridOne.buildGrid();
 
+        //
         testGridOne.getCell(0, 0).setHasFlag(true);
 
         Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(), "");
 
+        //
         testGridOne.removeFlag(0, 0);
 
         Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
         Assertions.assertEquals("Flag removed.", testGridOne.getMsgOutput(), "");
 
+        //
         testGridOne.removeFlag(0, 0);
 
         Assertions.assertEquals("There is no flag to remove.", testGridOne.getMsgOutput(), "");
 
+        //
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.removeFlag(0, 0);
 
@@ -162,16 +199,34 @@ public class GridTest {
         smallGrid.buildGrid();
         Cell mineLoc = smallGrid.getMineLocations().get(0);
 
+        //
         Assertions.assertFalse(smallGrid.getIsHasHitMine(), "");
 
+        //
         smallGrid.revealCell(mineLoc.getGridX(), mineLoc.getGridY());
 
         Assertions.assertTrue(smallGrid.getIsHasHitMine(), "");
-    }
 
-    @Test
-    public void testGetNeighbours() {
+        //
+        mineLoc.setHasMine(false);
+        mineLoc.setHasFlag(true);
+        smallGrid.revealCell(mineLoc.getGridX(), mineLoc.getGridY());
 
+        Assertions.assertFalse(mineLoc.getHasFlag(), "");
+
+        //
+        Assertions.assertTrue(mineLoc.getIsRevealed(), "");
+
+        //
+        List<Cell> neighbours = smallGrid.getNeighbours(mineLoc.getGridX(), mineLoc.getGridY());
+        Assertions.assertTrue(neighbours.get(0).getIsRevealed(), "");
+        Assertions.assertTrue(neighbours.get(1).getIsRevealed(), "");
+        Assertions.assertTrue(neighbours.get(2).getIsRevealed(), "");
+
+        //
+        mineLoc.setNeighbourMineCount(1);
+
+        Assertions.assertTrue(mineLoc.getIsRevealed(), "");
     }
 
     @Test
@@ -186,12 +241,14 @@ public class GridTest {
     public void testRevealAll() {
         smallGrid.setNumMines(0);
         smallGrid.buildGrid();
+        Cell testCell = smallGrid.getCell(0, 0);
 
-        Assertions.assertFalse(smallGrid.getCell(0, 0).getIsRevealed(), "");
+        Assertions.assertFalse(testCell.getIsRevealed(), "");
 
+        smallGrid.getCell(0, 0).setHasFlag(true);
         smallGrid.revealAll();
 
-        Assertions.assertTrue(smallGrid.getCell(0, 0).getIsRevealed(), "");
+        Assertions.assertTrue(testCell.getIsRevealed(), "");
 
     }
 }

@@ -68,51 +68,58 @@ import java.util.Scanner;
             }
 
 <span class="nc" id="L70">            mainGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);</span>
-<span class="nc" id="L71">            System.out.println(mainGrid.getMsgOutput());</span>
 
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (mainGrid.getIsHasHitMine()) {</span>
-<span class="nc" id="L74">                System.out.println(&quot;\nYou hit a mine! Better luck next time!&quot;);</span>
-<span class="nc" id="L75">                running = false;</span>
+<span class="nc" id="L72">            String msg = mainGrid.getMsgOutput();</span>
+<span class="nc bnc" id="L73" title="All 4 branches missed.">            if (msg.equals(&quot;Incorrect entry.&quot;) || msg.equals(&quot;Coordinates not in range.&quot;)) {</span>
+<span class="nc" id="L74">                System.err.println(msg);</span>
+            } else {
+<span class="nc" id="L76">                System.out.println(msg);</span>
             }
 
-<span class="nc" id="L78">            System.out.println();</span>
-<span class="nc" id="L79">            reader.nextLine();</span>
-        }
 
-<span class="nc" id="L82">        mainGrid.revealAll();</span>
-<span class="nc" id="L83">        System.out.println(mainGrid.drawGrid());</span>
-<span class="nc" id="L84">    }</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            if (mainGrid.getIsHasHitMine()) {</span>
+<span class="nc" id="L81">                System.out.println(&quot;\nYou hit a mine! Better luck next time!&quot;);</span>
+<span class="nc" id="L82">                running = false;</span>
+            }
+
+<span class="nc" id="L85">            System.out.println();</span>
+<span class="nc" id="L86">            reader.nextLine();</span>
+<span class="nc" id="L87">        }</span>
+
+<span class="nc" id="L89">        mainGrid.revealAll();</span>
+<span class="nc" id="L90">        System.out.println(mainGrid.drawGrid());</span>
+<span class="nc" id="L91">    }</span>
 
     public static boolean isInteger(String str) {
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (str == null) {</span>
-<span class="nc" id="L88">            return false;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (str == null) {</span>
+<span class="nc" id="L95">            return false;</span>
         }
 
-<span class="nc" id="L91">        int length = str.length();</span>
+<span class="nc" id="L98">        int length = str.length();</span>
 
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (length == 0) {</span>
-<span class="nc" id="L94">            return false;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (length == 0) {</span>
+<span class="nc" id="L101">            return false;</span>
         }
 
-<span class="nc" id="L97">        int i = 0;</span>
+<span class="nc" id="L104">        int i = 0;</span>
 
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (str.charAt(0) == '-') {</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">            if (length == 1) {</span>
-<span class="nc" id="L101">                return false;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (str.charAt(0) == '-') {</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (length == 1) {</span>
+<span class="nc" id="L108">                return false;</span>
             }
 
-<span class="nc" id="L104">            i = 1;</span>
+<span class="nc" id="L111">            i = 1;</span>
         }
 
-<span class="nc bnc" id="L107" title="All 2 branches missed.">        for (; i &lt; length; i++) {</span>
-<span class="nc" id="L108">            char c = str.charAt(i);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        for (; i &lt; length; i++) {</span>
+<span class="nc" id="L115">            char c = str.charAt(i);</span>
 
-<span class="nc bnc" id="L110" title="All 4 branches missed.">            if (c &lt; '0' || c &gt; '9') {</span>
-<span class="nc" id="L111">                return false;</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">            if (c &lt; '0' || c &gt; '9') {</span>
+<span class="nc" id="L118">                return false;</span>
             }
         }
 
-<span class="nc" id="L115">        return true;</span>
+<span class="nc" id="L122">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

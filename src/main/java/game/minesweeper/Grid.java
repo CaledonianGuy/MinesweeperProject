@@ -70,10 +70,6 @@ public class Grid {
     public String getMsgOutput() {
         return msgOutput;
     }
-
-    public void setMsgOutput(String msgOutput) {
-        this.msgOutput = msgOutput;
-    }
     // --------------------------------------------------------------------------------
 
     // Methods ------------------------------------------------------------------------
@@ -129,10 +125,10 @@ public class Grid {
                 case "add" -> addFlag(x - 1, y - 1);
                 case "remove" -> removeFlag(x - 1, y - 1);
                 case "reveal" -> revealCell(x - 1, y - 1);
-                default -> System.err.println("Incorrect entry.");
+                default -> msgOutput = "Incorrect entry.";
             }
         } else {
-            System.err.println("Coordinates not in range.");
+            msgOutput = "Coordinates not in range.";
         }
     }
 
