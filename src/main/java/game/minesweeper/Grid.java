@@ -14,6 +14,7 @@ public class Grid {
     private boolean hasHitMine;
     private final List<Cell> mineLocations;
     private String msgOutput;
+    private int cellsToReveal;
     // --------------------------------------------------------------------------------
 
     // Constructors -------------------------------------------------------------------
@@ -25,6 +26,7 @@ public class Grid {
         this.hasHitMine = false;
         this.mineLocations = new ArrayList<>();
         this.msgOutput = "";
+        this.cellsToReveal = (width * height) - numMines;
     }
 
     public Grid(int width, int height) {
@@ -35,6 +37,7 @@ public class Grid {
         this.hasHitMine = false;
         this.mineLocations = new ArrayList<>();
         this.msgOutput = "";
+        this.cellsToReveal = (width * height) - numMines;
     }
     // --------------------------------------------------------------------------------
 
@@ -69,6 +72,10 @@ public class Grid {
 
     public String getMsgOutput() {
         return msgOutput;
+    }
+
+    public int getCellsToReveal() {
+        return cellsToReveal;
     }
     // --------------------------------------------------------------------------------
 
@@ -182,8 +189,10 @@ public class Grid {
             if (!mainGrid[x][y].getIsRevealed()) {
                 if (mainGrid[x][y].getNeighbourMineCount() > 0) {
                     mainGrid[x][y].setIsRevealed(true);
+                    cellsToReveal--;
                 } else {
                     mainGrid[x][y].setIsRevealed(true);
+                    cellsToReveal--;
                     List<Cell> neighbours = getNeighbours(x, y);
                     for (Cell neighbour : neighbours) {
                         revealCell(neighbour.getGridX(), neighbour.getGridY());

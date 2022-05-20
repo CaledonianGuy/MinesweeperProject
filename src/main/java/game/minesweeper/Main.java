@@ -3,9 +3,9 @@ package game.minesweeper;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class GameManager {
+public class Main {
 
-    protected GameManager() {}
+//    protected Main() {}
 
     private static final String[] inputs = new String[3];
     private static boolean runningInputCheck;
@@ -17,12 +17,6 @@ public class GameManager {
         Grid mainGrid = new Grid();
         mainGrid.buildGrid();
 
-//        Scanner reader = new Scanner(System.in);
-
-//        String[] inputs = new String[3];
-//        String input;
-
-//        boolean runningInputCheck;
         boolean running = true;
 
         while (running) {
@@ -59,14 +53,15 @@ public class GameManager {
                 System.out.println(msg);
             }
 
-
             if (mainGrid.getHasHitMine()) {
-                System.out.println("\nYou hit a mine! Better luck next time!");
+                System.out.println("\nYou hit a mine! Better luck next time!\n");
                 running = false;
             }
 
-//            System.out.println();
-//            reader.nextLine();
+            if (mainGrid.getCellsToReveal() <= 0) {
+                System.out.println("\nYou won!\n");
+                running = false;
+            }
         }
 
         mainGrid.revealAll();
@@ -140,13 +135,13 @@ public class GameManager {
         }
     }
 
-    protected void run(String string) throws Exception { }
-
-    protected void logException() { }
-
-    protected static GameManager instance = null;
-
-    private static GameManager newGameManager() {
-        return instance == null ? new GameManager() : instance;
-    }
+//    protected void run(String string) throws Exception { }
+//
+//    protected void logException() { }
+//
+//    protected static Main instance = null;
+//
+//    private static Main newGameManager() {
+//        return instance == null ? new Main() : instance;
+//    }
 }
