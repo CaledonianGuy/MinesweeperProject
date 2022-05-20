@@ -59,7 +59,7 @@ public class Grid {
         return mainGrid[x][y];
     }
 
-    public boolean getIsHasHitMine() {
+    public boolean getHasHitMine() {
         return hasHitMine;
     }
 

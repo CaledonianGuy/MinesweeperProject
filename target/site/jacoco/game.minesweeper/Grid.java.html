@@ -59,7 +59,7 @@ public class Grid {
 <span class="fc" id="L59">        return mainGrid[x][y];</span>
     }
 
-    public boolean getIsHasHitMine() {
+    public boolean getHasHitMine() {
 <span class="fc" id="L63">        return hasHitMine;</span>
     }
 
@@ -83,40 +83,40 @@ public class Grid {
 <span class="fc" id="L83">    }</span>
 
     public String drawGrid() {
-<span class="nc" id="L86">        StringBuilder msg = new StringBuilder(&quot;  &quot;);</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (int row = -1; row &lt; height; row++) {</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (row != -1) {</span>
-<span class="nc" id="L89">                msg.append(row + 1).append(&quot; &quot;);</span>
+<span class="fc" id="L86">        StringBuilder msg = new StringBuilder(&quot;  &quot;);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (int row = -1; row &lt; height; row++) {</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (row != -1) {</span>
+<span class="fc" id="L89">                msg.append(row + 1).append(&quot; &quot;);</span>
             }
 
-<span class="nc bnc" id="L92" title="All 2 branches missed.">            for (int col = 0; col &lt; width; col++) {</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">                if (row == -1) {</span>
-<span class="nc" id="L94">                    msg.append(col + 1);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            for (int col = 0; col &lt; width; col++) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                if (row == -1) {</span>
+<span class="fc" id="L94">                    msg.append(col + 1);</span>
                 } else {
-<span class="nc bnc" id="L96" title="All 2 branches missed.">                    if (mainGrid[col][row].getHasFlag()) {</span>
-<span class="nc" id="L97">                        msg.append(&quot;F&quot;);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">                    } else if (mainGrid[col][row].getIsRevealed()) {</span>
-<span class="nc bnc" id="L99" title="All 2 branches missed.">                        if (mainGrid[col][row].getHasMine()) {</span>
-<span class="nc" id="L100">                            msg.append(&quot;M&quot;);</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">                        } else if (mainGrid[col][row].getNeighbourMineCount() &gt; 0) {</span>
-<span class="nc" id="L102">                            msg.append(mainGrid[col][row].getNeighbourMineCount());</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">                    if (mainGrid[col][row].getHasFlag()) {</span>
+<span class="fc" id="L97">                        msg.append(&quot;F&quot;);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                    } else if (mainGrid[col][row].getIsRevealed()) {</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">                        if (mainGrid[col][row].getHasMine()) {</span>
+<span class="fc" id="L100">                            msg.append(&quot;M&quot;);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">                        } else if (mainGrid[col][row].getNeighbourMineCount() &gt; 0) {</span>
+<span class="fc" id="L102">                            msg.append(mainGrid[col][row].getNeighbourMineCount());</span>
                         } else {
-<span class="nc" id="L104">                            msg.append(&quot; &quot;);</span>
+<span class="fc" id="L104">                            msg.append(&quot; &quot;);</span>
                         }
                     } else {
-<span class="nc" id="L107">                        msg.append(&quot;?&quot;);</span>
+<span class="fc" id="L107">                        msg.append(&quot;?&quot;);</span>
                     }
                 }
 
-<span class="nc bnc" id="L111" title="All 2 branches missed.">                if (col == width - 1) {</span>
-<span class="nc" id="L112">                    msg.append(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                if (col == width - 1) {</span>
+<span class="fc" id="L112">                    msg.append(&quot;\n&quot;);</span>
                 } else {
-<span class="nc" id="L114">                    msg.append(&quot; &quot;);</span>
+<span class="fc" id="L114">                    msg.append(&quot; &quot;);</span>
                 }
             }
         }
 
-<span class="nc" id="L119">        return msg.toString();</span>
+<span class="fc" id="L119">        return msg.toString();</span>
     }
 
     public void updateGrid(int x, int y, String action) {
@@ -138,7 +138,7 @@ public class Grid {
 <span class="fc" id="L138">            int randomNumX = ThreadLocalRandom.current().nextInt(0, width);</span>
 <span class="fc" id="L139">            int randomNumY = ThreadLocalRandom.current().nextInt(0, height);</span>
 
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">            if (!mainGrid[randomNumX][randomNumY].getHasMine()) {</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            if (!mainGrid[randomNumX][randomNumY].getHasMine()) {</span>
 <span class="fc" id="L142">                mainGrid[randomNumX][randomNumY].setHasMine(true);</span>
 <span class="fc" id="L143">                mineLocations.add(mainGrid[randomNumX][randomNumY]);</span>
 <span class="fc bfc" id="L144" title="All 2 branches covered.">                for (Cell neighbour : getNeighbours(randomNumX, randomNumY)) {</span>

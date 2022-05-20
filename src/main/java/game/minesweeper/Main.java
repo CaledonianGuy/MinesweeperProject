@@ -77,7 +77,7 @@ public class Main {
             }
 
 
-            if (mainGrid.getIsHasHitMine()) {
+            if (mainGrid.getHasHitMine()) {
                 System.out.println("\nYou hit a mine! Better luck next time!");
                 running = false;
             }

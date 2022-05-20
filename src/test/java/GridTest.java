@@ -1,13 +1,8 @@
 import game.minesweeper.Cell;
 import game.minesweeper.Grid;
-import junit.framework.Assert;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +57,11 @@ public class GridTest {
     @Test
     public void testGetSetHasHitMine() {
         // Test Grid One
-        Assertions.assertFalse(testGridOne.getIsHasHitMine(),
+        Assertions.assertFalse(testGridOne.getHasHitMine(),
                 "hasHitMine has not been made correctly in constructor Grid().");
 
         // Test Grid Two
-        Assertions.assertFalse(testGridTwo.getIsHasHitMine(),
+        Assertions.assertFalse(testGridTwo.getHasHitMine(),
                 "hasHitMine has not been made correctly in constructor Grid(int, int).");
     }
 
@@ -96,14 +91,36 @@ public class GridTest {
                 "addMine not working correctly.");
     }
 
-    /*
     @Test
     public void testDrawGrid() {
-        Grid smallGrid = new Grid(3, 3);
-        smallGrid.setNumMines(1);
-    }
+        smallGrid.setNumMines(0);
+        smallGrid.buildGrid();
 
-     */
+        // Setting-up flag
+        smallGrid.getCell(0, 0).setHasFlag(true);
+
+        // Setting-up mine
+        smallGrid.getCell(1, 0).setIsRevealed(true);
+        smallGrid.getCell(1, 0).setHasMine(true);
+
+        // Setting-up mine count
+        smallGrid.getCell(2, 0).setIsRevealed(true);
+        smallGrid.getCell(2, 0).setNeighbourMineCount(1);
+
+        // Setting-up reveal
+        smallGrid.getCell(0, 1).setIsRevealed(true);
+
+        // Setting-up test string
+        String testString = """
+                  1 2 3
+                1 F M 1
+                2   ? ?
+                3 ? ? ?
+                """;
+
+        // Checking draw matches
+        Assertions.assertEquals(testString, smallGrid.drawGrid(), "drawGrid not working correctly.");
+    }
 
     @Test
     public void testUpdateGrid() {
@@ -111,86 +128,105 @@ public class GridTest {
         smallGrid.buildGrid();
         Cell testCell = smallGrid.getCell(0, 0);
 
-        //
+        // Checking add
         smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "add");
 
-        Assertions.assertTrue(testCell.getHasFlag(), "");
+        Assertions.assertTrue(testCell.getHasFlag(), "Add (switch) not working correctly.");
 
-        //
+
+        // Checking remove
         smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "remove");
 
-        Assertions.assertFalse(testCell.getHasFlag(), "");
+        Assertions.assertFalse(testCell.getHasFlag(), "Remove (switch) not working correctly.");
 
-        //
+
+        // Checking reveal
         smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "reveal");
 
-        Assertions.assertTrue(testCell.getIsRevealed(), "");
+        Assertions.assertTrue(testCell.getIsRevealed(), "Reveal (switch) not working correctly.");
 
-        //
-        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "");
 
-        Assertions.assertEquals("Incorrect entry.", smallGrid.getMsgOutput(), "");
+        // Checking incorrect entry
+        smallGrid.updateGrid(testCell.getGridX() + 1, testCell.getGridY() + 1, "incorrect");
 
-        //
+        Assertions.assertEquals("Incorrect entry.", smallGrid.getMsgOutput(),
+                "Incorrect entry (switch) not working correctly.");
+
+
+        // Checking out of range
         smallGrid.updateGrid(10, 10, "add");
 
-        Assertions.assertEquals("Coordinates not in range.", smallGrid.getMsgOutput(), "");
+        Assertions.assertEquals("Coordinates not in range.", smallGrid.getMsgOutput(),
+                "Out of range not working correctly.");
     }
 
     @Test
     public void testAddFlag() {
         testGridOne.buildGrid();
 
-        // Test Grid One
-        Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
+        // Initial check
+        Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(),
+                "getHasFlag not working correctly (initial check -- addFlag).");
 
 
-        //
+        // Checking flag added
         testGridOne.addFlag(0, 0);
 
-        Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(), "");
-        Assertions.assertEquals("Flag added.", testGridOne.getMsgOutput(), "");
+        Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(),
+                "addFlag is not working correctly (checking flag added).");
+        Assertions.assertEquals("Flag added.", testGridOne.getMsgOutput(),
+                "\"Flag added.\" message not working correctly.");
 
 
-        //
+        // Checking flag cannot be added again
         testGridOne.addFlag(0, 0);
 
-        Assertions.assertEquals("There is already a flag.", testGridOne.getMsgOutput(), "");
+        Assertions.assertEquals("There is already a flag.", testGridOne.getMsgOutput(),
+                "\"There is already a flag.\" message not working correctly.");
 
 
-        //
+        // Checking for revealed cell
         testGridOne.getCell(0, 0).setHasFlag(false);
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.addFlag(0, 0);
 
-        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(), "");
+        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(),
+                "\"Cell already revealed.\" message not working correctly.");
     }
 
     @Test
     public void testRemoveFlag() {
         testGridOne.buildGrid();
 
-        //
+        // Initial check
         testGridOne.getCell(0, 0).setHasFlag(true);
 
-        Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(), "");
+        Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(),
+                "getHasFlag not working correctly (initial check -- removeFlag).");
 
-        //
+
+        // Checking flag removed
         testGridOne.removeFlag(0, 0);
 
-        Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
-        Assertions.assertEquals("Flag removed.", testGridOne.getMsgOutput(), "");
+        Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(),
+                "removeFlag is not working correctly (checking flag removed).");
+        Assertions.assertEquals("Flag removed.", testGridOne.getMsgOutput(),
+                "\"Flag removed.\" message not working correctly.");
 
-        //
+
+        // Checking flag cannot be removed again
         testGridOne.removeFlag(0, 0);
 
-        Assertions.assertEquals("There is no flag to remove.", testGridOne.getMsgOutput(), "");
+        Assertions.assertEquals("There is no flag to remove.", testGridOne.getMsgOutput(),
+                "\"There is no flag to remove.\" message not working correctly.");
 
-        //
+
+        // Checking for revealed cell
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.removeFlag(0, 0);
 
-        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(), "");
+        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(),
+                "\"Cell already revealed.\" message not working correctly.");
     }
 
     @Test
@@ -199,42 +235,56 @@ public class GridTest {
         smallGrid.buildGrid();
         Cell mineLoc = smallGrid.getMineLocations().get(0);
 
-        //
-        Assertions.assertFalse(smallGrid.getIsHasHitMine(), "");
+        // Initial check
+        Assertions.assertFalse(smallGrid.getHasHitMine(),
+                "hasHitMine has not working correctly (initial check -- reveal cell).");
 
-        //
+
+        // Checking hit mine
         smallGrid.revealCell(mineLoc.getGridX(), mineLoc.getGridY());
 
-        Assertions.assertTrue(smallGrid.getIsHasHitMine(), "");
+        Assertions.assertTrue(smallGrid.getHasHitMine(),
+                "revealCell not working correctly (checking hit mine).");
 
-        //
+
+        // Checking flag removal
         mineLoc.setHasMine(false);
         mineLoc.setHasFlag(true);
         smallGrid.revealCell(mineLoc.getGridX(), mineLoc.getGridY());
 
-        Assertions.assertFalse(mineLoc.getHasFlag(), "");
+        Assertions.assertFalse(mineLoc.getHasFlag(),
+                "revealCell not working correctly (checking flag removal).");
 
-        //
-        Assertions.assertTrue(mineLoc.getIsRevealed(), "");
 
-        //
+        // Checking cell reveal
+        Assertions.assertTrue(mineLoc.getIsRevealed(),
+                "revealCell not working correctly (checking cell reveal).");
+
+
+        // Checking neighbour reveal
         List<Cell> neighbours = smallGrid.getNeighbours(mineLoc.getGridX(), mineLoc.getGridY());
-        Assertions.assertTrue(neighbours.get(0).getIsRevealed(), "");
-        Assertions.assertTrue(neighbours.get(1).getIsRevealed(), "");
-        Assertions.assertTrue(neighbours.get(2).getIsRevealed(), "");
+        Assertions.assertTrue(neighbours.get(0).getIsRevealed(),
+                "revealCell not working correctly neighbour one (checking neighbour reveal).");
+        Assertions.assertTrue(neighbours.get(1).getIsRevealed(),
+                "revealCell not working correctly neighbour two (checking neighbour reveal).");
+        Assertions.assertTrue(neighbours.get(2).getIsRevealed(),
+                "revealCell not working correctly neighbour three (checking neighbour reveal).");
 
-        //
+
+        // Checking mine count > 0
         mineLoc.setNeighbourMineCount(1);
+        smallGrid.revealCell(mineLoc.getGridX(), mineLoc.getGridY());
 
-        Assertions.assertTrue(mineLoc.getIsRevealed(), "");
+        Assertions.assertTrue(mineLoc.getIsRevealed(),
+                "revealCell not working correctly (checking mine count > 0).");
     }
 
     @Test
     public void testIsInRange() {
-        Assertions.assertTrue(smallGrid.isInRange(1, 1), "");
-        Assertions.assertFalse(smallGrid.isInRange(10, 1), "");
-        Assertions.assertFalse(smallGrid.isInRange(1, 10), "");
-        Assertions.assertFalse(smallGrid.isInRange(10, 10), "");
+        Assertions.assertTrue(smallGrid.isInRange(1, 1), "inRange not working correctly (case one).");
+        Assertions.assertFalse(smallGrid.isInRange(10, 1), "inRange not working correctly (case two).");
+        Assertions.assertFalse(smallGrid.isInRange(1, 10), "inRange not working correctly (case three).");
+        Assertions.assertFalse(smallGrid.isInRange(10, 10), "inRange not working correctly (case four).");
     }
 
     @Test
@@ -243,12 +293,17 @@ public class GridTest {
         smallGrid.buildGrid();
         Cell testCell = smallGrid.getCell(0, 0);
 
-        Assertions.assertFalse(testCell.getIsRevealed(), "");
+        // Initial check
+        Assertions.assertFalse(testCell.getIsRevealed(),
+                "isRevealed not working correctly (initial check -- reveal all).");
 
+
+        // Checking flag removal
         smallGrid.getCell(0, 0).setHasFlag(true);
         smallGrid.revealAll();
 
-        Assertions.assertTrue(testCell.getIsRevealed(), "");
+        Assertions.assertTrue(testCell.getIsRevealed(),
+                "revealAll not working correctly (checking flag removal).");
 
     }
 }

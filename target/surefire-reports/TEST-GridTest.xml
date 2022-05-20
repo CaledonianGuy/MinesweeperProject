@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="GridTest" time="0.004" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="GridTest" time="0.006" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="18.0.1.1+2-6"/>
@@ -61,15 +61,16 @@
     <property name="sun.stdout.encoding" value="cp850"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="GridTest" name="GridTest.testRevealCell" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testUpdateGrid" time="0.001"/>
-  <testcase classname="GridTest" name="GridTest.testSetGetWidth" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testIsInRange" time="0.001"/>
-  <testcase classname="GridTest" name="GridTest.testBuildGrid" time="0.002"/>
-  <testcase classname="GridTest" name="GridTest.testRevealAll" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testGetNumMines" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testGetSetHeight" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testAddFlag" time="0"/>
-  <testcase classname="GridTest" name="GridTest.testRemoveFlag" time="0"/>
   <testcase classname="GridTest" name="GridTest.testGetSetHasHitMine" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testUpdateGrid" time="0.002"/>
+  <testcase classname="GridTest" name="GridTest.testGetNumMines" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testRemoveFlag" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testGetSetHeight" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testIsInRange" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testBuildGrid" time="0.004"/>
+  <testcase classname="GridTest" name="GridTest.testDrawGrid" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testAddFlag" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testRevealCell" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testRevealAll" time="0"/>
+  <testcase classname="GridTest" name="GridTest.testSetGetWidth" time="0"/>
 </testsuite>
