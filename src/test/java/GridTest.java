@@ -12,22 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridTest {
-    private final PrintStream standardOut = System.out;
-    private  final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
     Grid testGridOne = new Grid();
     Grid testGridTwo = new Grid(10, 10);
     Grid smallGrid = new Grid(3, 3);
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut((new PrintStream((outputStreamCaptor))));
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.setOut((standardOut));
-    }
 
     @Test
     public void testSetGetWidth() {
@@ -86,25 +73,26 @@ public class GridTest {
     @Test
     public void testBuildGrid() {
         List<Cell> testList = new ArrayList<>();
+        Grid testGridThree = new Grid();
 
         // Test Grid One
         // Check getCell
-        Assertions.assertNull(testGridOne.getCell(0, 0),
+        Assertions.assertNull(testGridThree.getCell(0, 0),
                 "getCell is not working correctly.");
 
         // Check getMineLocations
-        Assertions.assertEquals(testList, testGridOne.getMineLocations(),
+        Assertions.assertEquals(testList, testGridThree.getMineLocations(),
                 "getMineLocations not working correctly.");
 
         // Build the grid
-        testGridOne.buildGrid();
+        testGridThree.buildGrid();
 
         // Check buildGrid
-        Assertions.assertNotNull(testGridOne.getCell(0, 0),
+        Assertions.assertNotNull(testGridThree.getCell(0, 0),
                 "buildGrid is not working correctly.");
 
         // Check addMines
-        Assertions.assertNotEquals(testList, testGridOne.getMineLocations(),
+        Assertions.assertNotEquals(testList, testGridThree.getMineLocations(),
                 "addMine not working correctly.");
     }
 
@@ -123,41 +111,30 @@ public class GridTest {
     }
 
     @Test
-    public void testAddFlagOne() {
+    public void testAddFlag() {
         testGridOne.buildGrid();
 
-        // Test Grid
+        // Test Grid One
         Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
 
         testGridOne.addFlag(0, 0);
 
         Assertions.assertTrue(testGridOne.getCell(0, 0).getHasFlag(), "");
-        Assert.assertEquals("Flag added.", outputStreamCaptor.toString().trim());
-    }
+        Assertions.assertEquals("Flag added.", testGridOne.getMsgOutput(), "");
 
-    @Test
-    public void testAddFlagTwo() {
-        testGridOne.buildGrid();
-
-        testGridOne.getCell(0, 0).setHasFlag(true);
         testGridOne.addFlag(0, 0);
 
-        Assert.assertEquals("There is already a flag.", outputStreamCaptor.toString().trim());
-    }
+        Assertions.assertEquals("There is already a flag.", testGridOne.getMsgOutput(), "");
 
-    @Test
-    public void testAddFlagThree() {
-        testGridOne.buildGrid();
-
+        testGridOne.getCell(0, 0).setHasFlag(false);
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.addFlag(0, 0);
 
-        Assert.assertEquals("Cell already revealed.", outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(), "");
     }
 
-
     @Test
-    public void testRemoveFlagOne() {
+    public void testRemoveFlag() {
         testGridOne.buildGrid();
 
         testGridOne.getCell(0, 0).setHasFlag(true);
@@ -167,26 +144,16 @@ public class GridTest {
         testGridOne.removeFlag(0, 0);
 
         Assertions.assertFalse(testGridOne.getCell(0, 0).getHasFlag(), "");
-        Assert.assertEquals("Flag removed.", outputStreamCaptor.toString().trim());
-    }
-
-    @Test
-    public void testRemoveFlagTw0() {
-        testGridOne.buildGrid();
+        Assertions.assertEquals("Flag removed.", testGridOne.getMsgOutput(), "");
 
         testGridOne.removeFlag(0, 0);
 
-        Assert.assertEquals("There is no flag to remove.", outputStreamCaptor.toString().trim());
-    }
-
-    @Test
-    public void testRemoveFlagThree() {
-        testGridOne.buildGrid();
+        Assertions.assertEquals("There is no flag to remove.", testGridOne.getMsgOutput(), "");
 
         testGridOne.getCell(0, 0).setIsRevealed(true);
         testGridOne.removeFlag(0, 0);
 
-        Assert.assertEquals("Cell already revealed.", outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Cell already revealed.", testGridOne.getMsgOutput(), "");
     }
 
     @Test

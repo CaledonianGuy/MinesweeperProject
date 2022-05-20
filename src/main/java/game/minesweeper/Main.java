@@ -68,6 +68,7 @@ public class Main {
             }
 
             mainGrid.updateGrid(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[1]), inputs[2]);
+            System.out.println(mainGrid.getMsgOutput());
 
             if (mainGrid.getIsHasHitMine()) {
                 System.out.println("\nYou hit a mine! Better luck next time!");

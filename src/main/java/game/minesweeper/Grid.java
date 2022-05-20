@@ -13,6 +13,7 @@ public class Grid {
     private final Cell[][] mainGrid;
     private boolean hasHitMine;
     private final List<Cell> mineLocations;
+    private String msgOutput;
     // --------------------------------------------------------------------------------
 
     // Constructors -------------------------------------------------------------------
@@ -23,6 +24,7 @@ public class Grid {
         this.mainGrid = new Cell[this.width][this.height];
         this.hasHitMine = false;
         this.mineLocations = new ArrayList<>();
+        this.msgOutput = "";
     }
 
     public Grid(int width, int height) {
@@ -32,6 +34,7 @@ public class Grid {
         this.mainGrid = new Cell[this.width][this.height];
         this.hasHitMine = false;
         this.mineLocations = new ArrayList<>();
+        this.msgOutput = "";
     }
     // --------------------------------------------------------------------------------
 
@@ -62,6 +65,14 @@ public class Grid {
 
     public List<Cell> getMineLocations() {
         return mineLocations;
+    }
+
+    public String getMsgOutput() {
+        return msgOutput;
+    }
+
+    public void setMsgOutput(String msgOutput) {
+        this.msgOutput = msgOutput;
     }
     // --------------------------------------------------------------------------------
 
@@ -144,23 +155,23 @@ public class Grid {
 
     public void addFlag(int x, int y) {
         if (mainGrid[x][y].getIsRevealed()) {
-            System.out.println("Cell already revealed.");
+            msgOutput = "Cell already revealed.";
         } else if (!mainGrid[x][y].getHasFlag()) {
             mainGrid[x][y].setHasFlag(true);
-            System.out.println("Flag added.");
+            msgOutput = "Flag added.";
         } else {
-            System.out.println("There is already a flag.");
+            msgOutput = "There is already a flag.";
         }
     }
 
     public void removeFlag(int x, int y) {
         if (mainGrid[x][y].getIsRevealed()) {
-            System.out.println("Cell already revealed.");
+            msgOutput = "Cell already revealed.";
         } else if (mainGrid[x][y].getHasFlag()) {
             mainGrid[x][y].setHasFlag(false);
-            System.out.println("Flag removed.");
+            msgOutput = "Flag removed.";
         } else {
-            System.out.println("There is no flag to remove.");
+            msgOutput = "There is no flag to remove.";
         }
     }
 
